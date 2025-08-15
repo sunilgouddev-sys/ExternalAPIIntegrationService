@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+payment:
+  api:
+    base-url: http://localhost:8080/api/v1
+    key: ${PAYMENT_API_KEY:test-api-key}
+    timeout:
+      connection: 5000
+      read: 10000
+
+logging:
+  level:
+    org.example: INFO
+    org.springframework.web.reactive.function.client: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,httptrace,loggers
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+  metrics:
+    export:
+      simple:
+        enabled: true
+    web:
+      client:
+        request:
+          autotime:
+            enabled: true
